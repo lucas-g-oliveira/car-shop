@@ -1,6 +1,8 @@
 import IMotorcycle from '../Interfaces/IMotorcycle';
+import AbstractODM from '../Models/AbstractODM';
+import MotorcycleSchema from '../Models/Schemas/MotorcycleSchema';
 
-export default class Motorcycle {
+export default class Motorcycle extends AbstractODM<IMotorcycle> {
   private _id?: string | undefined;
   private _model: string;
   private _year: number;
@@ -11,6 +13,7 @@ export default class Motorcycle {
   private _engineCapacity: number;
 
   constructor(motorcycle: IMotorcycle) {
+    super(MotorcycleSchema, 'Motorcycle');
     this._id = motorcycle.id;
     this._model = motorcycle.model;
     this._year = motorcycle.year;
