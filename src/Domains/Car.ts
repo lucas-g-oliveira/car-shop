@@ -1,8 +1,6 @@
 import ICar from '../Interfaces/ICar';
-import AbstractODM from '../Models/AbstractODM';
-import CarSchema from '../Models/Schemas/CarSchema';
 
-export default class Car extends AbstractODM<ICar> {
+export default class Car {
   private _id?: string | undefined;
   private _model: string;
   private _year: number;
@@ -13,7 +11,6 @@ export default class Car extends AbstractODM<ICar> {
   private seatsQtd: number;
 
   constructor(car: ICar) {
-    super(CarSchema, 'Car');
     this._id = car.id;
     this._model = car.model;
     this._year = car.year;
