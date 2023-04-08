@@ -1,4 +1,4 @@
-import IMotorcycle from '../Interfaces/IMotorcycle';
+/* import IMotorcycle from '../Interfaces/IMotorcycle';
 import Motorcycle from '../Domains/Motorcycle';
 import MotorcycleODM from '../Models/MotorcycleODM';
 
@@ -14,4 +14,4 @@ export default class MotorcycleService {
     const data = await this._odm.create(motocycler);
     return this.createDomain(data);
   }
-}
+} */

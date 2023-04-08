@@ -1,4 +1,4 @@
-import IMotorcycle from '../Interfaces/IMotorcycle';
+/* import IMotorcycle from '../Interfaces/IMotorcycle';
 
 export default class Motorcycle {
   protected id?: string | undefined;
@@ -20,4 +20,4 @@ export default class Motorcycle {
     this.category = motorcycle.category;
     this.engineCapacity = motorcycle.engineCapacity;
   }
-}
+} */
