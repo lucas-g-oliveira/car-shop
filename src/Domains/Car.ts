@@ -14,7 +14,6 @@ export default class Car extends Vehicle {
       status: car.status,
       buyValue: car.buyValue,
     });
-
     this.doorsQty = car.doorsQty;
     this.seatsQty = car.seatsQty;
   }

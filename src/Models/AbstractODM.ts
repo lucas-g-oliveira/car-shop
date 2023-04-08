@@ -8,15 +8,17 @@ abstract class AbstractODM<T> {
   constructor(schema:Schema, modelName: string) {
     this._schema = schema;
     this._modelName = modelName;
-    this.odmModel = models[this._modelName] || model(modelName, schema);
+    this.odmModel = models[this._modelName] || model(this._modelName, this._schema);
   }
 
-  public async create(obj:T):Promise<T> {
-    return this.odmModel.create({ ...obj });
+  async create(obj:T):Promise<T> {
+    const data = await this.odmModel.create({ ...obj });
+    return data;
   }
 
-  public async findAll():Promise<T[] | []> {
-    return this.odmModel.find();
+  async findAll():Promise<T[]> {
+    const data = await this.odmModel.find();
+    return data;
   }
 
   /* public async update(_id: number, obj:Partial<T>): Promise<T | null> {
