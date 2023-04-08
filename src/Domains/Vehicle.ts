@@ -1,50 +1,44 @@
-import ICar from '../Interfaces/ICar';
 import Car from './Car';
 import AbstractODM from '../Models/AbstractODM';
 import IVehicle from '../Interfaces/IVehicle';
 import CarSchema from '../Models/Schemas/CarSchema';
 import Motorcycle from './Motorcycle';
 import MotorcycleSchema from '../Models/Schemas/MotorcycleSchema';
-import IMotorcycle from '../Interfaces/IMotorcycle';
 
 class Vehicle extends AbstractODM<IVehicle> {
-  constructor(vehicle: IVehicle) { 
-    if (vehicle instanceof Car) {
-      super(CarSchema, 'Car', vehicle);
-    }
-    if (vehicle instanceof Motorcycle) {
-      super(MotorcycleSchema, 'Motorcycle', vehicle);
-    }
+  private _vehicle:IVehicle;
+
+  constructor(vehicle: IVehicle) {
+    super(
+      (vehicle instanceof Motorcycle) ? MotorcycleSchema : CarSchema,
+      (vehicle instanceof Car) ? 'Car' : 'Motorcycle',
+    );
+    this._vehicle = vehicle;
+  }
+
+  get id():string | undefined {
+    return this._vehicle.id;
+  }
+
+  get model():string {
+    return this._vehicle.model;
+  }
+
+  get year():number {
+    return this._vehicle.year;
+  }
+
+  get color():string {
+    return this._vehicle.color;
+  }
+
+  get status():boolean {
+    return this._vehicle.status;
+  }
+
+  get buyValue():number {
+    return this._vehicle.buyValue;
   }
 }
 
 export default Vehicle;
-
-const car:ICar = {
-  model: '',
-  year: 0,
-  color: '',
-  status: false,
-  buyValue: 0,
-  doorsQty: 0,
-  seatsQtd: 0,
-};
-
-const moto:IMotorcycle = {
-  model: '',
-  year: 0,
-  color: '',
-  status: false,
-  buyValue: 0,
-  category: '',
-  engineCapacity: 0,
-};
-
-const newCar = new Car(car);
-const vehicleCar = new Vehicle(newCar);
-
-const newMoto = new Motorcycle(moto);
-const vehicleMoto = new Vehicle(newMoto);
-
-vehicleCar.create();
-vehicleMoto.findAll();

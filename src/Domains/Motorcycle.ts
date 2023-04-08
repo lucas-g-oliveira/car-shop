@@ -1,42 +1,23 @@
 import IMotorcycle from '../Interfaces/IMotorcycle';
 
 export default class Motorcycle {
-  private _id?: string | undefined;
-  private _model: string;
-  private _year: number;
-  private _color: string;
-  private _status: boolean;
-  private _buyValue: number;
-  private _category: string;
-  private _engineCapacity: number;
+  protected id?: string | undefined;
+  protected model: string;
+  protected year: number;
+  protected color: string;
+  protected status: boolean;
+  protected buyValue: number;
+  private category: string;
+  private engineCapacity: number;
 
   constructor(motorcycle: IMotorcycle) {
-    this._id = motorcycle.id;
-    this._model = motorcycle.model;
-    this._year = motorcycle.year;
-    this._color = motorcycle.color;
-    this._status = motorcycle.status;
-    this._buyValue = motorcycle.buyValue;
-    this._category = motorcycle.category;
-    this._engineCapacity = motorcycle.engineCapacity;
-  }
-
-  get id(): string | undefined {
-    return this._id;
-  }
-  get model(): string {
-    return this._model;
-  }
-  get year(): number {
-    return this._year;
-  }
-  get color(): string {
-    return this._color;
-  }
-  get status(): boolean {
-    return this._status;
-  }
-  get buyValue(): number {
-    return this._buyValue;
+    this.id = motorcycle.id;
+    this.model = motorcycle.model;
+    this.year = motorcycle.year;
+    this.color = motorcycle.color;
+    this.status = motorcycle.status;
+    this.buyValue = motorcycle.buyValue;
+    this.category = motorcycle.category;
+    this.engineCapacity = motorcycle.engineCapacity;
   }
 }

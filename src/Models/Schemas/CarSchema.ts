@@ -9,5 +9,5 @@ export default new Schema<ICar>({
   status: { type: Boolean, required: true },
   buyValue: { type: Number, required: true },
   doorsQty: { type: Number, required: true },
-  seatsQtd: { type: Number, required: true },
+  seatsQty: { type: Number, required: true },
 });
