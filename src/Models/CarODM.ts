@@ -4,6 +4,6 @@ import CarSchema from './Schemas/CarSchema';
 
 export default class CarODM extends AbstractODM<ICar> {
   constructor() {
-    super(CarSchema, 'Car');
+    super(CarSchema, 'cars');
   }
 }
