@@ -4,6 +4,6 @@ import MotorcycleSchema from './Schemas/MotorcycleSchema';
 
 export default class MotorcycleODM extends AbstractODM<IMotorcycle> {
   constructor() {
-    super(MotorcycleSchema, 'motorcycleschemas');
+    super(MotorcycleSchema, 'motorcycles');
   }
 }

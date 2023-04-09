@@ -19,4 +19,14 @@ export default class CarService {
     const data = await this._odm.findAll();
     return data.map((e) => new Car(e));
   }
+
+  public async getOneById(id:string) {
+    const data = await this._odm.findOneById(id);
+    return new Car(data);
+  }
+
+  async update(id:string, obj:Partial<ICar>) {
+    const data = await this._odm.update(id, obj);
+    return data;
+  }
 }

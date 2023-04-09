@@ -13,14 +13,13 @@ export default class CarController {
   }
 
   async add() {
-    // const { model, year, color, buyValue, doorsQty, seatsQty } = this.req.body;
     const exisit = this.req.body.status ? this.req.body.status : false;
     const car:ICar = { ...this.req.body, status: exisit };
     try {
       const data = await this._carService.add(car);
       return this.res.status(201).json(data);
     } catch (err) {
-      return this.res.status(201).json({ message: car });
+      return this.res.status(400).json({ message: 'BAD REQUEST' });
     }
   }
 
@@ -32,8 +31,20 @@ export default class CarController {
       return this.res.status(500).json({ message: 'Falha ao buscar todos' });
     }
   }
-  /* async update(req: Request, res: Response) {
-    const data = await this._carService.update(Number(req.params.id), req.body);
-    return res.status(200).json({ data });
+
+  /* async getOneById(req: Request, res: Response) {
+    const { id } = req.params;
+    try {
+      const data = await this._carService.getOneById(id);
+      if (data) return res.status(404).json('Car not found');
+      return res.status(200).json(data);
+    } catch (err) {
+      return this.res.status(404).json({ message: 'Falha ao buscar todos' });
+    }
+  }
+
+  async update(req: Request, res: Response) {
+    const data = await this._carService.update(req.params.id, req.body);
+    return res.status(200).json(data);
   } */
 }
