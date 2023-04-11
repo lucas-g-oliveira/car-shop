@@ -1,4 +1,5 @@
 import { models, model, Model, Schema, UpdateQuery, isValidObjectId } from 'mongoose';
+import { PersonalizedError, errors } from '../Middleware/errors';
 
 abstract class AbstractODM<T> {
   protected odmModel: Model<T>;
@@ -22,15 +23,15 @@ abstract class AbstractODM<T> {
   }
 
   async findOneById(id:string):Promise<T> {
-    if (!isValidObjectId(id)) throw Error('erro');
+    if (!isValidObjectId(id)) throw new PersonalizedError(errors.invalidMongoId);
     const data = await this.odmModel.findById(id);
     return data as T;
   }
 
-  public async update(_id: string, obj:Partial<T>): Promise<T | null> {
-    if (!isValidObjectId(_id)) throw Error(`Invalid ${this._modelName} id`);
+  public async update(id: string, obj:Partial<T>): Promise<T | null> {
+    if (!isValidObjectId(id)) throw new PersonalizedError(errors.invalidMongoId);
     return this.odmModel.findByIdAndUpdate(
-      { _id },
+      { id },
       { ...obj } as UpdateQuery<T>,
       { new: true },
     );

@@ -1,15 +1,18 @@
 import { NextFunction, Request, Response } from 'express';
 import ICar from '../Interfaces/ICar';
 import CarService from '../Services/CarService';
+import { PersonalizedError, errors } from '../Middleware/errors';
 
 export default class CarController {
   private _carService = new CarService();
   private req:Request;
   private res:Response;
+  private next: NextFunction;
  
-  constructor(req:Request, res:Response, _next: NextFunction) {
+  constructor(req:Request, res:Response, next: NextFunction) {
     this.req = req;
     this.res = res;
+    this.next = next;
   }
 
   async add() {
@@ -19,32 +22,31 @@ export default class CarController {
       const data = await this._carService.add(car);
       return this.res.status(201).json(data);
     } catch (err) {
-      return this.res.status(400).json({ message: 'BAD REQUEST' });
+      this.next(new PersonalizedError(errors.erroNoServidor));
     }
   }
 
-  async getAll(_req: Request, res: Response) {
+  async getAll() {
     try {
       const data = await this._carService.findAll();
-      return res.status(200).json(data);
+      return this.res.status(200).json(data);
     } catch (err) {
-      return this.res.status(500).json({ message: 'Falha ao buscar todos' });
+      this.next(new PersonalizedError(errors.erroNoServidor));
     }
   }
 
-  /* async getOneById(req: Request, res: Response) {
-    const { id } = req.params;
+  async getOneById() {
+    const { id } = this.req.params;
     try {
       const data = await this._carService.getOneById(id);
-      if (data) return res.status(404).json('Car not found');
-      return res.status(200).json(data);
+      return this.res.status(200).json(data);
     } catch (err) {
-      return this.res.status(404).json({ message: 'Falha ao buscar todos' });
+      this.next(err);
     }
   }
 
-  async update(req: Request, res: Response) {
-    const data = await this._carService.update(req.params.id, req.body);
-    return res.status(200).json(data);
-  } */
+  async update() {
+    const data = await this._carService.update(this.req.params.id, this.req.body);
+    return this.res.status(200).json(data);
+  }
 }
