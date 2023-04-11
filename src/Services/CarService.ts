@@ -31,6 +31,6 @@ export default class CarService {
   async update(id:string, obj:Partial<ICar>) {
     const data = await this._odm.update(id, obj);
     if (!data) throw new PersonalizedError(errors.carNotFound);
-    return data;
+    return new Car(data);
   }
 }

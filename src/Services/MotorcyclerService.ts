@@ -31,6 +31,6 @@ export default class MotorcycleService {
   async update(id:string, obj:Partial<IMotorcycle>) {
     const data = await this._odm.update(id, obj);
     if (!data) throw new PersonalizedError(errors.motocyclerNotFound);
-    return data;
+    return new Motorcycle(data);
   }
 }

@@ -46,7 +46,11 @@ export default class CarController {
   }
 
   async update() {
-    const data = await this._carService.update(this.req.params.id, this.req.body);
-    return this.res.status(200).json(data);
+    try {
+      const data = await this._carService.update(this.req.params.id, this.req.body);
+      return this.res.status(200).json(data);
+    } catch (err) {
+      this.next(err);
+    }
   }
 }

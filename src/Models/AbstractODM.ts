@@ -1,4 +1,4 @@
-import { models, model, Model, Schema, UpdateQuery, isValidObjectId } from 'mongoose';
+import { models, model, Model, Schema, isValidObjectId } from 'mongoose';
 import { PersonalizedError, errors } from '../Middleware/errors';
 
 abstract class AbstractODM<T> {
@@ -28,13 +28,14 @@ abstract class AbstractODM<T> {
     return data as T;
   }
 
-  public async update(id: string, obj:Partial<T>): Promise<T | null> {
-    if (!isValidObjectId(id)) throw new PersonalizedError(errors.invalidMongoId);
-    return this.odmModel.findByIdAndUpdate(
-      { id },
-      { ...obj } as UpdateQuery<T>,
+  async update(_id: string, obj:Partial<T>): Promise<T | null> {
+    if (!isValidObjectId(_id)) throw new PersonalizedError(errors.invalidMongoId);
+    const data = await this.odmModel.findByIdAndUpdate(
+      { _id },
+      { ...obj },
       { new: true },
     );
+    return data;
   }
 }
 
